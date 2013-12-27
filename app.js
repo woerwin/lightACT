@@ -18,7 +18,7 @@ var MongoStore = require('connect-mongo')(express);
 
 var fs = require('fs');
 //var accessLog = fs.createWriteStream('logs/access.log', {flags: 'a'});
-var errorLog = fs.createWriteStream('logs/error.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 
 var app = express();
 
@@ -97,7 +97,7 @@ log4js.configure({
     { type: 'console' },
     {
       type: 'file',
-      filename: 'logs/access.log', 
+      filename: 'access.log', 
       maxLogSize: 1024,
       backups:4,
       category: 'normal' 
