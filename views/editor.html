@@ -1,0 +1,143 @@
+<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="/ueditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" charset="utf-8" src="/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- inc template file -->
+    
+    
+    <!-- html var -->
+    
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+                <li class="{:show_active('index',2)}">
+                <a href="{:U('Index/index')}">信息列表</a>
+                 <ul class="nav">
+                    <li><a href="#overview-doctype">HTML5文档类型</a></li>
+                    <li><a href="#overview-mobile">移动设备优先</a></li>
+                 </ul>
+                </li>
+                <li class="{:show_active('addInfo',2)}"><a href="{:U('Index/index')}">二二二二二</a></li>
+                <li class="{:show_active('marathonReg',2)}">
+                <a href="{:U('Index/index')}">三三三三三三</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h3 id="overview">列表</h3>
+            </div>
+            <div class="">
+              <form class="form-horizontal" action="/editor" role="form" method="post"  enctype='multipart/form-data'>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="name" class="form-control" placeholder="输入马拉松名称" value="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">类别</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" name="category">
+                          <option value="1"   >热门赛事</option><option value="2"   >国际</option><option value="3"   >国内</option>                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">举办时间</label>
+                    <div class="col-sm-5">
+                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii" data-link-field="dtp_input1">
+                        <input class="form-control" size="16" type="text" value="2013-12-16 22:15" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+    					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+    				    <input type="hidden" name="time" id="dtp_input1" value="2013-12-16 22:15" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">举办城市</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="city" class="form-control" placeholder="输入举办城市" value="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">概述</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="description" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    
+                    <label class="col-sm-2 control-label">详细内容</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="content" rows="3"></textarea>
+                      <script type="text/plain" id="myEditor" style="width:100%;height:240px;">
+    <p>这里我可以写一些输入提示</p>
+</script>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">状态</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="state" id="optionsRadios1" value="0" checked>
+                            有效
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="state" id="optionsRadios2" value="1"  >
+                            无效
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">版本文件</label>
+                    <div class="col-sm-5">
+                      <input type="file" name="version_file" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <input type="hidden" value="" name="id" />
+                      <input type="hidden" value="" name="url" />
+                      <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+<script>
+$('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+});
+//实例化编辑器
+var ue = UM.getEditor('myEditor');
+</script>

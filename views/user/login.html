@@ -1,0 +1,175 @@
+    <!-- inc template file -->
+    
+    <!-- html var -->
+
+    <!-- Callout for the old docs link -->
+
+<script src="/frontia/Baidu-Frontia-JS-1.0.0.js"></script>    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div role="main" class="col-md-6">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h1 id="overview">登 录</h1>
+            </div>
+            <div class="">
+                <form method="post" action="/login" role="form" class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputEmail3">用户名</label>
+                    <div class="col-sm-6">
+                      <input type="text" placeholder="用户名" name="username" id="inputEmail3" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword3">密码</label>
+                    <div class="col-sm-6">
+                      <input type="password" placeholder="密码" name="password" id="inputPassword3" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputVerify3">验证码</label>
+                    <div class="col-sm-3">
+                      <input type="text" placeholder="验证码" name="verifycode" id="inputVerify3" class="form-control">
+                    </div>
+                    <div class="col-sm-3" id="verifycode" onclick="showVCode();">
+                    </div>
+                    <script>$(function(){showVCode();});</script>
+                  </div>
+                  <!--div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div-->
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button class="btn btn-primary" type="submit">登录</button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <button class="btn btn-info scail_connect" type="button"  title="baidu">百度账号登录</button>
+                <button class="btn btn-info scail_connect" type="button" title="sinaweibo">新浪微博登录</button>
+                <button class="btn btn-info scail_connect" type="button" title="qqdenglu">QQ账号登录</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6" role="main">
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h1 id="overview">注 册</h1>
+            </div>
+            <div class="">
+                <form method="post" action="/register" role="form" class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputEmail3">用户名</label>
+                    <div class="col-sm-6">
+                      <input type="text" placeholder="用户名" name="username" id="inputEmail3" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword3">密码</label>
+                    <div class="col-sm-6">
+                      <input type="password" placeholder="密码" name="password" id="inputPassword3" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword4">确认密码</label>
+                    <div class="col-sm-6">
+                      <input type="password" placeholder="确认密码" name="password-repeat" id="inputPassword4" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputEmail4">邮箱</label>
+                    <div class="col-sm-6">
+                      <input type="text" placeholder="邮箱" name="email" id="inputEmail4" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button class="btn btn-default" type="submit">注册</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+<script>
+  (function (frontia) {
+    //var msg = document.getElementById('some-msg');
+    // API key 从应用信息页面获取
+    var AK = 'gyFG80njksqzyzwyiDxc3Irv';
+    // 在应用管理页面下的 社会化服务 - 基础设置中设置该地址
+    var redirect_url = 'http://51action.duapp.com/login';
+    // 初始化 frontia
+    frontia.init(AK);
+    // 设置登录成功后的回调
+    frontia.social.setLoginCallback({
+      success: function (user) {
+        console.log(user);
+        // 如果用户已经登录，则显示用户的登录信息
+        //msg.innerHTML = 'name = ' + user.getName() + '<br>' +
+        //    'token = ' + user.getAccessToken() + '<br>' +
+        //    'social_id = ' + user.getId() + '<br>' +
+        //    'expires_in = ' + user.getExpiresIn();
+        var post = {
+            name:user.getName(),
+            token:user.getAccessToken(),
+            social_id:user.getId(),
+            expires_in:user.getExpiresIn(),
+            media_type:user.mediaType
+        };
+        console.log(post);
+        $.post('/social_login',post,function(data){
+            console.log(data);
+           if(parseInt(data.code)){
+            window.location.href = '/login';
+           }else{
+            window.location.href = '/';
+           } 
+        },'json');
+      },
+      error: function (error) {
+        console.log('error');
+        console.log(error);
+      }
+    });
+
+    // 点击登录按钮
+    //document.getElementById('login-test').addEventListener('click', function (ev) {
+    $('.scail_connect').click(function (ev) {
+
+      // 初始化登录的配置
+      var options = {
+        response_type: 'token',
+        media_type: $(this).attr('title'),  // 登录百度帐号
+        redirect_uri: redirect_url,
+        client_type: 'web',
+        scope: 'netdisk'
+      };
+
+      // 登录
+      frontia.social.login(options);
+    });
+
+    var user;
+    user = frontia.getCurrentAccount();
+
+    // 判断用户是否登录
+    if (user && user.getType() === 'user' && user.getMediaType() === 'baidu') {
+        // 如果用户已经登录，则显示用户的登录信息
+        
+    }
+ }(baidu.frontia));
+</script>

@@ -1,0 +1,91 @@
+    <!-- inc template file -->
+    
+    <!-- html var -->
+    {{{htmlContext}}}
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav bootstro" data-bootstro-title='这里是分类' 
+        	data-bootstro-content="可选择你感兴趣的，多多了解参与(⊙o⊙)哦，右侧可先概览一哈！"
+        	data-bootstro-width="400px" 
+        	data-bootstro-placement='bottom' 
+            data-bootstro-html='false' 
+            data-bootstro-step='2'>
+                <!--li class="active">
+                <a href="/">全部</a>
+                 <ul class="nav">
+                    <li><a href="#overview-doctype">HTML5文档类型</a></li>
+                    <li><a href="#overview-mobile">移动设备优先</a></li>
+                 </ul>
+                </li-->
+                {{{cateStr}}}
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <!--h3 id="overview">列表</h3-->
+              <span class="label label-info"></span>
+            </div>
+          </div>
+          
+          {{#each acts}}
+          <div class="col-sm-9 col-md-12">
+            <div class="thumbnail">
+              <a href="/act/show/{{this._id}}">
+              {{#if this.act_pic}}
+              <img src="{{this.act_pic}}" width="100%" alt="{{this.title}}"/>
+              {{else}} 
+              <img data-src="holder.js/100%x200" alt="{{this.title}}"/>
+              {{/if}}
+              </a>
+              <div class="caption">
+                <h3><a href="/act/show/{{this._id}}">{{this.title}}</a></h3>
+                <p>{{this.description}}</p>
+                <p>
+                <span title="活动时间"><span class="label label-primary"><span class="glyphicon glyphicon-calendar"></span>  {{this.act_time}}</span></span>
+                <span title="活动人数">
+                <span class="label label-info"><span class="glyphicon glyphicon-user"></span> {{this.act_man}}</span>
+                </span>
+                <span title="已报名人数"><span class="label label-success"><span class="glyphicon glyphicon-ok"></span> 
+                {{#if this.act_reg}}
+                {{this.act_reg}}
+                {{else}}
+                0
+                {{/if}}
+                </span></span>
+                &nbsp;
+                <span title="活动状态">
+                {{# if this.do_state}}
+                <span class="label label-danger"><span class="glyphicon glyphicon-star"></span> 进行中</span>
+                {{else}}
+                <span class="label label-warning"><span class="glyphicon glyphicon-ok"></span> 已结束</span>
+                {{/if}}
+                </span>
+                &nbsp;
+                <span title="活动地点"><span class="label label-success">{{this.address}}</span></span>
+                <p style="text-align: right;">
+                <span>
+                <a href="/act/show/{{this._id}}" class="btn btn-primary" role="button">详情<span class="glyphicon glyphicon-arrow-right"></span></a>
+                <a href="/act/doregister/{{this._id}}" class="btn btn-default" role="button">报名<span class="glyphicon glyphicon-pencil"></span></a></span>
+			    </p> 
+                </p>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          <ul class="pagination">
+                {{{pages}}}
+          </ul>
+        </div>
+        
+      </div>
+
+    </div>

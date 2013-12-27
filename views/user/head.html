@@ -1,0 +1,152 @@
+<script src="/frontia/Baidu-Frontia-JS-1.0.0.js"></script>
+
+    <!-- inc template file -->
+    
+    
+    <!-- html var -->
+    
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+                <li><a href="/userinfo">个人资料</a></li>      
+                <li class="active"><a href="/head">修改头像</a></li>
+                <li class=""><a href="/password">修改密码</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h3 id="overview">{{title}}</h3>
+            </div>
+            <div class="">
+                <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">头像</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" value="{{user._id}}" name="uid"/>
+                        <input type="hidden" id="head_pic" value="{{user.head_pic}}" name="head_pic"/>
+                        <span title="选择文件" id="select_image">
+                        <img width="96" height="96" src="{{# if user.head_pic}}{{user.head_pic}}{{else}}/images/defaul_head.png{{/if}}" id="show_head"/>
+                        </span>
+                        <input type="file" style="display: none;" id="file-upload" name="file-upload"/>
+                       <!--button id="select_image" class="btn btn-info" type="button">选择文件</button-->
+                       <button id="doUpload" class="btn btn-info" type="button">上传</button>
+                       <span id="some-msg" class="label label-info"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary">保存头像</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+<script>
+$(function(){
+    $("#select_image").click(function(){
+        $("#file-upload").click();
+    });
+});
+  /**
+   * @param {baidu.frontia} fronta
+   * @param {baidu.frontia.File} fFile
+   * @param {baidu.frontia.ACL} ACL
+   * @param {baidu.frontia.Role} Role
+   * @param {baidu.frontia.storage} storage
+   */
+  (function (frontia, fFile, ACL, Role, storage) {
+    var msgEl = document.getElementById('some-msg');
+
+    var AK = 'gyFG80njksqzyzwyiDxc3Irv';
+    // 初始化 frontia
+    frontia.init(AK);
+
+    // 创建一种角色，后续上传的文件对该角色有对应读写权限
+    var role = new Role('role_public');//role_name
+
+    // 当点击上传按钮，去上传选中的文件
+    document.getElementById('doUpload').addEventListener('click', function(ev){
+      ev.preventDefault();
+
+      // 使用 HTML5 的 File API 去获取选中的文件
+      /** @var {File} h5file */
+      var h5file = document.getElementById('file-upload').files[0];
+      if(!h5file) {
+        alert('点击头像区，选择头像文件');
+        return ;
+      }
+
+      // 设置上传到云存储的 路径及文件名
+      var filename = '/head/' + h5file.name;
+
+      // 初始化一个 frontia.File 对象
+      var frontiaFile = new fFile(h5file, filename);
+
+      // 初始化一个权限控制对象
+      var acl = new ACL();
+
+      // 对前文创建的角色 role 设置读写权限
+      acl.setReadAccess(role, true);
+      acl.setWriteAccess(role, true);
+
+      // 设置 frontia.File 对象的读写权限
+      frontiaFile.setAcl(acl);
+
+      // 上传成功|失败的回调函数
+      var options = {
+        success: function(response) {
+          console.log(response);
+          // 设置当前执行环境的角色
+          frontia.setCurrentAccount(role);
+
+          var filename = response.response_params.object;
+
+          // 根据 路径和文件名 查找该文件的下载地址
+          storage.getFileUrl(filename, {
+            success: function(response){
+              console.log(response);
+              var url = ((response || {}).response_params || {}).url || '';
+              if(!h5file.type.match(/image.*/)) {
+                //msgEl.innerHTML = '<p>上传的文件路径是<br><pre><code>' + url + '</code></pre></p>';
+                alert('请选择图片文件上传！')
+              } else {
+                ////var img = document.createElement('img');
+                //img.src = url;
+                //msgEl.appendChild(img);
+                document.getElementById('head_pic').value = url;
+                document.getElementById('show_head').src = url;
+              }
+            },
+            error: function() {
+              console.log(arguments);
+            }
+          })
+        },
+        error: function(err) {
+          console.log(err);
+          msgEl.innerHTML = err.toString();
+        }
+      };
+
+      // 上传
+      storage.uploadFile(frontiaFile, options);
+    });
+
+  }(baidu.frontia, baidu.frontia.File, baidu.frontia.ACL, baidu.frontia.Role, baidu.frontia.storage));
+</script>

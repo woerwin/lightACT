@@ -1,0 +1,142 @@
+<script src="/frontia/Baidu-Frontia-JS-1.0.0.js"></script>
+    <!-- inc template file -->
+    
+    
+    <!-- html var -->
+    
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+                <li><a href="/act/list">活动管理</a></li>
+                <li class="active"><a href="/act/cate">活动分类</a></li>
+                <li><a href="/act/join">报名管理</a></li>
+                <li><a href="/user/list">用户管理</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h3 id="overview">{{title}}</h3>
+            </div>
+            <div class="">
+              <form class="form-horizontal" role="form" method="post"  enctype='multipart/form-data'>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">分类名称</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="title" class="form-control" placeholder="分类名称" value="{{cateInfo.title}}"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">分类图片</label>
+                    <div class="col-sm-5">
+                      <input type="hidden" name="cate_pic" id="cate_pic" value="{{cateInfo.cate_pic}}" />
+                      <input type="file" id="upload_cate_pic" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">分类概述</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="description" rows="3">{{cateInfo.description}}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">状态</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="state" id="optionsRadios1" value="0" checked>
+                            显示
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="state" id="optionsRadios2" value="1"  >
+                            隐藏
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <input type="hidden" name="cid" value="{{cateInfo._id}}" />
+                      <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+<script>
+
+  /**
+   * @param {baidu.frontia} fronta
+   * @param {baidu.frontia.File} fFile
+   * @param {baidu.frontia.ACL} ACL
+   * @param {baidu.frontia.Role} Role
+   * @param {baidu.frontia.storage} storage
+   */
+  (function (frontia, fFile, ACL, Role, storage) {
+    var AK = 'gyFG80njksqzyzwyiDxc3Irv';
+    // 初始化 frontia
+    frontia.init(AK);
+    // 创建一种角色，后续上传的文件对该角色有对应读写权限
+    var role = new Role('role_public');//role_name
+    
+    $('#upload_cate_pic').change(function(ev){
+        var h5file = document.getElementById('upload_cate_pic').files[0];
+        // 设置上传到云存储的 路径及文件名
+        var filename = '/cate/' + h5file.name;
+        // 初始化一个 frontia.File 对象
+        var frontiaFile = new fFile(h5file, filename);
+        // 初始化一个权限控制对象
+        var acl = new ACL();
+        // 对前文创建的角色 role 设置读写权限
+        acl.setReadAccess(role, true);
+        acl.setWriteAccess(role, true);
+        // 设置 frontia.File 对象的读写权限
+        frontiaFile.setAcl(acl);
+        // 上传成功|失败的回调函数
+        var options = {
+            success: function(response) {
+              // 设置当前执行环境的角色
+              frontia.setCurrentAccount(role);
+              var filename = response.response_params.object;
+              // 根据 路径和文件名 查找该文件的下载地址
+              storage.getFileUrl(filename, {
+                success: function(response){
+                  var url = ((response || {}).response_params || {}).url || '';
+                  if(!h5file.type.match(/image.*/)) {
+                    alert('请选择图片文件上传！')
+                  } else {
+                    document.getElementById('cate_pic').value = url;
+                  }
+                },
+                error: function() {
+                  console.log(arguments);
+                }
+              })
+            },
+            error: function(err) {
+              console.log(err);
+            }
+        };
+        // 上传
+        storage.uploadFile(frontiaFile, options);
+    });
+
+  }(baidu.frontia, baidu.frontia.File, baidu.frontia.ACL, baidu.frontia.Role, baidu.frontia.storage));
+</script>

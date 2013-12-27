@@ -1,0 +1,81 @@
+<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="/ueditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" charset="utf-8" src="/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- inc template file -->
+    
+    
+    <!-- html var -->
+    
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+                <li class="active"><a href="/act/list">活动管理</a></li>
+                <li><a href="/act/cate">活动分类</a></li>
+                <li><a href="/act/join">报名管理</a></li>
+                <li><a href="/user/list">用户管理</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h3 id="overview">{{title}}  <a href="/act/add" class="btn btn-info btn-xs" role="button">添加活动</a></h3>
+            </div>
+            <div class="">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>分类名称</th>
+                    <th>标题/名称</th>
+                    <th>活动时间</th>
+                    <th>活动地址</th>
+                    <th>活动人数</th>
+                    <th>报名人数</th>
+                    <th>发布人</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each acts}}  
+                  <tr>
+                    <td>{{this.cate_title}}</td>
+                    <td title="{{this.title}}" width="20%">{{this.title}}</td>
+                    <td>{{this.act_time}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.act_man}}</td>
+                    <td>{{this.act_reg}}</td>
+                    <td>{{this.username}}</td>
+                    <td>
+                    <a href="/act/add?id={{this._id}}">编辑</a>
+                    <a href="/act/actdel?id={{this._id}}">删除</a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+              <ul class="pagination">
+                {{{pages}}}
+             </ul>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+<script>
+
+</script>

@@ -1,0 +1,73 @@
+    <!-- inc template file -->
+    
+    <!-- html var -->
+    {{{htmlContext}}}
+
+    <!-- Callout for the old docs link -->
+    
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+                <li class="{:show_active('index',2)}">
+                <a href="{:U('Index/index')}">信息列表</a>
+                 <ul class="nav">
+                    <li><a href="#overview-doctype">HTML5文档类型</a></li>
+                    <li><a href="#overview-mobile">移动设备优先</a></li>
+                 </ul>
+                </li>
+                <li class="{:show_active('addInfo',2)}"><a href="{:U('Index/index')}">二二二二二</a></li>
+                <li class="{:show_active('marathonReg',2)}">
+                <a href="{:U('Index/index')}">三三三三三三</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-9" role="main">
+          <!-- Global Bootstrap settings
+          ================================================== -->
+          <div class="bs-docs-section">
+            {{#if success}}
+              <div class="success">{{success}}</div>
+            {{/if}}
+            {{#if error}}
+              <div class="warning">{{error}} </div>
+            {{/if}}
+            <div class="page-header">
+              <h1 id="overview">列表</h1>
+            </div>
+            <div class="">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>列2</th>
+                    <th>列3</th>
+                    <th>列4</th>
+                    <th>列5</th>
+                    <th>列6</th>
+                    <th>列7</th>
+                    <th>列8</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+              <div class="pagination">{{$page}}</div>
+              <div>
+              <form method='post' action='/upload' enctype='multipart/form-data' >
+                  <input type="file" name='file1'/>
+                  <input type="submit" value="上传" />
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>

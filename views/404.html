@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=""/>
+<meta name="author" content=""/>
+<link rel="shortcut icon" href="/images/favicon.ico"/>
+<title>{{title}}</title>
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Documentation extras -->
+<link href="/css/docs.css" rel="stylesheet"/>
+<link href="/css/github.css" rel="stylesheet"/>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/holder.js"></script>
+<script src="/js/highlight.js"></script>
+<script src="/js/application.js"></script>
+<style>
+body{font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","WenQuanYi Micro Hei",sans-serif;}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;}
+pre code { background: transparent; }
+</style>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="/js/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/ie8-responsive-file-warning.js"></script>
+<script>if(confirm('小伙伴，IE9以下请绕行！换用Chrome或Firfox？')){window.location.href='http://www.firefox.com.cn/';}</script>
+<![endif]-->
+<script>
+$(function(){hljs.initHighlightingOnLoad();$('.dropdown').hover(function(){$(this).addClass('open');},function(){$(this).removeClass('open');});});
+function showVCode(){$.get('/image/vcode',function(data){$('#verifycode').html(data);});}
+</script>
+</head>
+<body>
+    
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" style="background: none repeat scroll 0 0 #666666;color: #000000;text-shadow: 0 1px 1px #FFFFFF;font-size: 25px;font-weight: bold;" class="navbar-brand bootstro"
+        	data-bootstro-title='我是快捷指导标题' 
+        	data-bootstro-content="我是内容"
+        	data-bootstro-width="400px" 
+        	data-bootstro-placement='bottom' 
+            data-bootstro-step='0'>轻活动·易享</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li {{#if nav_index}} class="active" {{/if}} >
+          <a href="/">首页</a>
+        </li>
+        <li id="bootstro">
+            <a>快捷向导</a>
+        </li>
+        {{#if user}}
+        <li {{#if nav_myact}} class="active" {{/if}} ><a href="/user/myact">我的活动</a></li>
+        {{/if}}
+        {{#if user.is_admin}}
+        <li {{#if nav_actlist}} class="active" {{/if}} >
+          <a href="/act/list">管理设置</a>
+        </li>
+        {{/if}}
+      </ul>
+      <ul class="nav navbar-nav navbar-right bootstro"
+        	data-bootstro-title='我是快捷指导标题' 
+        	data-bootstro-content="我是内容"
+        	data-bootstro-width="400px" 
+        	data-bootstro-placement='bottom' 
+            data-bootstro-html='false' 
+            data-bootstro-step='1'>
+        <li class="dropdown">
+          {{#if user}}  
+          <a href="/Index/about" class="dropdown-toggle" data-toggle="dropdown">{{user.username}}<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          <li><a href="/logout">个人资料</a></li>
+          <li><a href="/logout">修改头像</a></li>
+          <li><a href="/logout">修改密码</a></li>
+          <li class="divider"></li>
+          <li><a href="/logout">退出</a></li>
+          </ul>
+          {{else}}
+          <a href="/login" class="dropdown-toggle" data-toggle="dropdown" onclick="window.location.href='/login';">登录<b class="caret"></b></a>
+          {{/if}}
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <!-- inc template file -->
+    <!-- Docs page layout -->
+    <div class="bs-header" id="content">
+      <div class="container">
+        <h1>404</h1>
+        <p>您访问的页面不存在！！！<a href="/">前往首页</a></p>
+        <p>?</p>
+        <p>?</p>
+      </div>
+    </div>
+
+    <!-- Callout for the old docs link -->
+
+
+<!-- Footer
+    ================================================== -->
+    <footer class="bs-footer" role="contentinfo">
+      <div class="container">
+        
+
+        <!--p>xxx.</p>
+        <p>yyy.</p-->
+        <ul class="footer-links">
+          <li>当前版本： v0.0.1</li>
+          <li class="muted">&middot;</li>
+          <li>&copy; 2013 动动更健康 All Rights Reserved</li>
+          <li class="muted">&middot;</li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- JS and analytics only. -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="myModal" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 id="myModalLabel" class="modal-title">提示？</h4>
+          </div>
+          <div class="modal-body">
+            {{#if success}}
+              <div class="alert alert-success alert_custom">
+              {{success}}
+              </div>
+            {{/if}}
+            {{#if error}}
+              <div class="alert alert-warning alert_custom">
+              {{error}}
+              </div>
+            {{/if}}
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            <!--button class="btn btn-primary" type="button">Save changes</button-->
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+    <button style="display: none;" data-target="#myModal" data-toggle="modal" id="sohwMyModal" class="btn btn-primary btn-lg">
+        显示
+    </button>
+<!-- Analytics
+================================================== -->
+<script type="text/javascript">
+$(function(){
+    //$('.alert_custom').fadeOut(3000);
+    if('{{success}}' || '{{error}}'){
+        $("#sohwMyModal").click();
+    }
+</script>
+</body>
+</html>
