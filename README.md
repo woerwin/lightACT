@@ -3,6 +3,8 @@ lightACT
 
 light Activity System
 
+BAE3(FrontiaJS) + NodeJS + Express + Twitter Bootstrap
+
 ##环境需求
     
     NodeJS、MongoDB、BAE(开通Image、云存储服务)
