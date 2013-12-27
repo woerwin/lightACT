@@ -1,0 +1,26 @@
+{
+  "name": "51Action",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "ejs": "*",
+    "mongodb": "*",
+    "connect-mongo": "*",
+    "connect-flash": "*",
+    "markdown": "*",
+    "xss": "*",
+    "mongoose" : "*",
+    "eventproxy" : "*",
+    "express3-handlebars": "*",
+    "async": "*",
+    "supervisor": "*",
+    "mysql": "*",
+    "redis": "*",
+    "crypto": "*",
+    "log4js": "*"
+  }
+}
